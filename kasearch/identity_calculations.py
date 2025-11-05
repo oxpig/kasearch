@@ -34,7 +34,7 @@ def chunk(array, chunks):
 def _calculate_single_sequence_identity_average(abs1, abs2, masks, length_matched):
     comparison = abs1 == abs2
 
-    mask1, mask2 = (abs1 != 0) & (abs1 != 124), (abs2 != 0) & (abs1 != 124)
+    mask1, mask2 = (abs1 != 0) & (abs1 != 124), (abs2 != 0) & (abs2 != 124)
     overlapping_residues = comparison * mask1 * mask2
 
     len1, len2 = mask1 @ masks, mask2 @ masks
