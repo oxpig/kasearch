@@ -1,8 +1,10 @@
-from anarci import anarci
 from multiprocessing import Pool
 from functools import partial
 
 def _number_chunk(sequences, scheme="imgt", database="ALL", allow=set(["H","K","L"]), allowed_species=['human','mouse'], strict = True, **kwargs):
+    # Imported lazily so `import kasearch` does not require anarci (which depends on the CC-licensed IMGT
+    # germline database). Only needed when KA-Search's own ANARCI numbering path is actually used.
+    from anarci import anarci
     try:
         numbered, _, _ = anarci(list(enumerate(sequences)), scheme=scheme, database=database, allow=allow, allowed_species=allowed_species, **kwargs)
         numbered  = [x[0][0] if x else None for x in numbered]
