@@ -15,6 +15,13 @@ setup(
     package_data={
         '': ['*.txt']
     },
+    entry_points={
+        'console_scripts': ['kasearch=kasearch.cli:main'],
+    },
+    # ANARCI is also a runtime dependency (`kasearch.anarci_numbering` imports
+    # it), but it is deliberately absent here.  The `anarci` package on PyPI is
+    # not an official release, so ANARCI must come from Bioconda
+    # (`bioconda::anarci`).
     install_requires=[
         'pandas',
         'joblib',

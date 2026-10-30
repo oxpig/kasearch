@@ -2,7 +2,7 @@ import os
 import ast
 import json
 from joblib import Parallel, delayed
-import pkg_resources
+from importlib import resources
 
 import pandas as pd
 import numpy as np
@@ -53,7 +53,8 @@ class ExtractMetadata:
             print("""Heavy chain data in Bender et al. 2020 has been removed from OAS due to contamination.
 Metadata from matches to Bender et al. 2020 sequences therefore return NaN. Either increase 'keep_best_n' 
 or use a newer OASdb.""")
-            sequence_data = pd.read_csv(pkg_resources.resource_filename(__name__, 'blank_df.csv'))
+            with resources.files(__package__).joinpath('blank_df.csv').open() as blank_df:
+                sequence_data = pd.read_csv(blank_df)
 
             return sequence_data.reindex(list(range(len(line_ids)))).reset_index(drop=True)
 
